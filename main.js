@@ -1,5 +1,6 @@
 var coffeeShop = {
   beans: 40,
+  money: 100,
 
   drinkRequirements: {
     latte: 10,
@@ -8,24 +9,37 @@ var coffeeShop = {
     frenchPress: 12
   },
 
+  buySupplies: function (amountOfUnits) {
+    var beansUnitPrice = 15;
+    var total = amountOfUnits * beansUnitPrice;
+    if (this.money >= total) {
+      this.money = this.money - total;
+      console.log('there is ' + this.money + ' left');
+    } else {
+      alert("there is no more cash left in the shop");
+    }
+
+  },
+
   makeDrink: function (drinkType) {
-    // TODO: Finish this method
-    if(drinkType !== drinkRequirements[drinkType]){
-      alert('Sorry, we dont make ' + drinkType);
-    } else if (drinkType === drinkRequirements[drinkType]){
-      this.beans
+    if (this.drinkRequirements[drinkType] === undefined) {
+      alert("Sorry, we don't make " + drinkType);
+    }
+    else if (this.beans < this.drinkRequirements[drinkType]) {
+      alert("Sorry, we're all out of beans!");
+    }
+    else {
+      this.beans -= this.drinkRequirements[drinkType];
+      alert(this.beans);
     }
   }
-}
 
-coffeeShop.makeDrink("latte");
-coffeeShop.makeDrink("americano");
-coffeeShop.makeDrink("filtered");
-coffeeShop.makeDrink("doubleShot");
-coffeeShop.makeDrink("frenchPress");
+};
 
 
+//coffeeShop.buySupplies(1);
+//coffeeShop.makeDrink("americano");
+//coffeeShop.makeDrink("filtered");
+//coffeeShop.makeDrink("doubleShot");
+//coffeeShop.makeDrink("frenchPress");
 
-/*Only allows you make a drink if it's a drink in the drinkRequirements object. Otherwise alert: "Sorry, we don't make DRINKNAME".
-If the drink is part of the drinkRequirements object, reduce the amount of beans by the number of beans required for that drink.
-If there are not enough beans to make that drink, alert: "Sorry, we're all out of beans!".*/
